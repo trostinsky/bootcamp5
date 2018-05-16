@@ -94,10 +94,11 @@ class Books extends Component{
         // })
 
         this.setState((prevState) => ({
-            javascriptBooks: [...prevState.javascriptBooks, {
+            books: [...prevState.books, {
                 name: prevState.name,
                 cover: prevState.cover,
-                author: prevState.author
+                author: prevState.author,
+                type: prevState.active
             }]
         }))
     }
