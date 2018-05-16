@@ -3,3 +3,19 @@
     line-height: 1.75;
     border: 10px solid #c2ff3b;
 }
+.default-button{
+    width: 200px;
+    height: 50px;
+    border: solid 5px #c2ff3b;
+    background-color: #fff;
+    color: #c2ff3b;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: Helvetica;
+}
+
+.super-button{
+    width: 500px;
+    height:200px;
+}

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import HelloClassState, {Hello, HelloClassProps} from "./hello"
 import registerServiceWorker from './registerServiceWorker';
 import "./index.css";
+import Button from "./ui/button.js"
 
 const BookItem = ({name, author, cover}) => (
     <div className="book">
@@ -139,9 +140,11 @@ class Books extends Component{
                                onChange={this.changeInput.bind(this, "cover")}
                         />
                     </div>
-                    <button onClick={this.addBook}>Add Book!</button>
+                    <Button onClick={this.addBook}>
+                        Add Book!
+                    </Button>
                 </div>
-                {books.map((book, index) => <BookItem {...book} /> )}
+                {books.map((book, index) => <BookItem key={index} {...book} /> )}
             </div>
         )
     }
