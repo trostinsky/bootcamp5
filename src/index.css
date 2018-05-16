@@ -19,3 +19,15 @@
     width: 500px;
     height:200px;
 }
+
+.input{
+    width: 200px;
+    height:40px;
+    padding-left: 20px;
+    box-sizing: border-box;
+    border:solid 2px #c2ff3b;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Helvetica;
+}

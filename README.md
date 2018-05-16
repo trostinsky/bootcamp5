@@ -5,7 +5,7 @@
 - **Day 2:** Functional/Class components. State and Props.
 - **Day 3:** Complicated components. Uncontrolled components(inputs). Events.
 - **Day 4:** High Ordered Components. Throw down props
-- **Day 5:** Context API.
+- **Day 5:** Lifecycle. Context API.
 - **Day 6:** React Router
 - **Day 7:** Styled Components.
 - **Day 8:** Flux implementation

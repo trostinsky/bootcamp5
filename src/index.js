@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import HelloClassState, {Hello, HelloClassProps} from "./hello"
 import registerServiceWorker from './registerServiceWorker';
 import "./index.css";
-import Button from "./ui/button.js"
+import Button from "./ui/button.js";
+import Input from "./ui/input.js";
 
 const BookItem = ({name, author, cover}) => (
     <div className="book">
@@ -105,6 +106,7 @@ class Books extends Component{
     }
 
 
+
     render(){
         const books = [...this.state.books].filter((book) => book.type === this.state.active);
         return (
@@ -119,14 +121,14 @@ class Books extends Component{
                 <div className="book__add">
                     <div>
                         Name:
-                        <input type="text" className="book__name"
+                        <Input type="text" className="book__name"
                                value={this.state.name}
                                onChange={this.changeInput.bind(this, "name")}
                         />
                     </div>
                     <div>
                         Author:
-                        <input type="text"
+                        <Input type="text"
                                className="book__author"
                                value={this.state.author}
                                onChange={this.changeInput.bind(this, "author")}
@@ -134,7 +136,7 @@ class Books extends Component{
                     </div>
                     <div>
                         Cover:
-                        <input type="text"
+                        <Input type="text"
                                className="book__cover"
                                value={this.state.cover}
                                onChange={this.changeInput.bind(this, "cover")}

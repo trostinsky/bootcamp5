@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-
-
 const Button = ({type, children, ...props}) => {
     return <button className={type} {...props}>
         {children.toUpperCase()}
