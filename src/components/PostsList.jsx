@@ -63,7 +63,7 @@ class PostsList extends Component {
                 <button onClick={this.addPost}>Add Post</button>
                 {this.state.posts.map((post, index) => {
                         return (
-                            <Post title={post.title}>
+                            <Post title={post.title} likes={post.likes}>
                                 {post.content}
                             </Post>
                         )

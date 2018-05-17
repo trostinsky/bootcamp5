@@ -2,29 +2,31 @@ import React, {Component} from 'react';
 
 class Post extends Component {
     state = {
-        likes: 3,
-    };
-
-    incrLike = () => {
-        this.setState(prevState =>{
-            return {likes:prevState.likes+1}
-        })
+        liked: false
     }
 
-    decrLikes = () => {
-        this.setState(prevState => {
-            return {likes:prevState.likes-1}
-        })
+
+    toggleLike() {
+        this.setState((prevState)=> {
+            return {
+                liked:!prevState.liked
+            }
+        });
     }
+
 
     render() {
+        let opacity = this.state.liked ? 1 : 0.5;
         return (
             <div>
                 <h3>{this.props.title}</h3>
                 <p>{this.props.children}</p>
-                {this.state.likes}
-                <button onClick={this.incrLike}>likes</button>
-                <button onClick={this.decrLikes}>dislikes</button>
+                {this.props.likes}
+                <img src="/like.jpg" width='20' style={{opacity}} alt="#"
+                onClick={this.toggleLike.bind(this)}
+
+                />
+
             </div>
         )
     }
