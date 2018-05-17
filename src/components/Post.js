@@ -28,6 +28,7 @@ class Post extends Component {
     }
 
 
+
     render() {
         let opacity = this.state.liked ? 1 : 0.5;
         return (
