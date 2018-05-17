@@ -43,6 +43,16 @@ class PostsList extends Component {
         })
     }
 
+    changeLikes(index, liked){
+        const changer = liked ? 1 : -1;
+        this.setState((prevState) => {
+            const copyPosts = [...prevState.posts];
+            copyPosts[index].likes = prevState.posts[index].likes + changer;
+            return {
+                posts: copyPosts
+            }
+        })
+    }
 
     render() {
         return (
@@ -57,13 +67,16 @@ class PostsList extends Component {
                     <textarea placeholder="new text post"
                               onChange={this.changeContent}
                     >
-{this.state.content}
+                        {this.state.content}
                     </textarea>
                 </p>
                 <button onClick={this.addPost}>Add Post</button>
                 {this.state.posts.map((post, index) => {
                         return (
-                            <Post title={post.title} likes={post.likes}>
+                            <Post title={post.title} 
+                                  likes={post.likes}
+                                  onLike={this.changeLikes.bind(this, index)}
+                            >
                                 {post.content}
                             </Post>
                         )
