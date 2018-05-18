@@ -1,7 +1,34 @@
 import React,{Component, Fragment} from 'react';
-import Post from './Post';
+import Post from './post';
 
 class PostsList extends Component {
+    // constructor(props){
+    //     super(props);
+    //     debugger;
+    // }
+    //
+    // componentWillMount(){
+    //     debugger;
+    //     // render();
+    // }
+    //
+    // componentDidMount(){
+    //     debugger;
+    // }
+    //
+    // shouldComponentUpdate(nextProps, nextState){
+    //     debugger;
+    //     return true;
+    // }
+    //
+    // componentWillUpdate(){
+    //     debugger;
+    // }
+    //
+    // componentDidUpdate(){
+    //     debugger;
+    // }
+
     state = {
         posts: [{
             title: 'History',
@@ -55,6 +82,8 @@ class PostsList extends Component {
     }
 
     render() {
+        console.log(<Post title="Test"/>)
+        debugger;
         return (
             <Fragment>
                 <h2>All posts</h2>
