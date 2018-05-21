@@ -8,14 +8,19 @@ class Timer extends Component {
     static propTypes = {
         time: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         step: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        autoStart: PropTypes.bool
-    }
+        autoStart: PropTypes.bool,
+        reverse: PropTypes.bool,
+        onTimeOut: PropTypes.func
+
+    };
 
     static defaultProps = {
         time: 60,
         step: 1,
-        autoStart: false
-    }
+        autoStart: false,
+        reverse: true,
+        onTimeOut: console.log.bind(console, "Time out!")
+    };
 
     state = {
         time: this.props.time,
@@ -36,18 +41,28 @@ class Timer extends Component {
 
     timerTick = () => {
         console.log(`${this.state.time} - tick`);
-        if (this.state.time <= 0) {
+        if (this.state.time <= 0 && this.props.reverse) {
+            this.props.onTimeOut(this.state.time);
             this.stopHandler();
             return;
         }
+        this.props.reverse ? this.reverseTick() : this.straightTick();
+    };
+    reverseTick = () => {
         this.setState((prevState) => {
             return {
                 time: prevState.time - 1,
                 progressBar: prevState.progressBar - (prevState.progressBar/prevState.time)
             }
-
         });
-    }
+    };
+    straightTick = () =>{
+        this.setState((prevState) => {
+            return {
+                time: parseInt(prevState.time) + 1,
+            }
+        })
+    };
 
     initialState = () => {
         this.setState({
@@ -55,17 +70,17 @@ class Timer extends Component {
             isStarted: true,
             time: 60
         });
-    }
+    };
 
     startHandler = () => {
         if (this.timerId) {
             return;
         }
-        if(this.state.time <= 0) {
+        if(this.state.time <= 0 && this.props.reverse) {
             this.initialState();
         }
         this.toggleIsStarted(true);
-        this.timerId = setInterval(this.timerTick, 100);
+        this.timerId = setInterval(this.timerTick, 1000);
     };
 
     toggleIsStarted = (bool) => {
@@ -109,7 +124,10 @@ class Timer extends Component {
                 <RenderIf condition={!this.state.isStarted}>
                     <button onClick={this.startHandler}>Start</button>
                 </RenderIf>
-                <div className='progressBar' style={{width: this.state.progressBar + '%'}}></div>
+                <RenderIf condition={this.props.reverse}>
+                    <div className='progressBar'
+                         style={{width: this.state.progressBar + '%'}}/>
+                </RenderIf>
             </div>
 
         )

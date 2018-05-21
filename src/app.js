@@ -20,11 +20,12 @@ class App extends Component{
     render(){
         return (
             <Fragment>
-                <Timer />
+                <Timer time="5" onTimeOut={this.switchTimer} />
                 <button onClick={this.switchTimer}>Переключить таймер</button>
                 <RenderIf condition={this.state.showTimer}>
-                    <Timer time="6000" step="5" autoStart/>
+                    <Timer time="6000" step="2" autoStart/>
                 </RenderIf>
+                <Timer time='0' reverse={false} autoStart/>
             </Fragment>
         );
     }
