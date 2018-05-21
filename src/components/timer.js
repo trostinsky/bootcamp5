@@ -72,7 +72,7 @@ class Timer extends Component {
                     <button onClick={this.stopHandler}>Stop</button>
                 </RenderIf>
                 <RenderIf condition={!this.state.isStarted}>
-                    <button onClick={startHandler}>Start</button>
+                    <button onClick={this.startHandler}>Start</button>
                 </RenderIf>
                 <div className='progressBar' style={{width: this.state.progressBar + '%'}}></div>
             </div>
