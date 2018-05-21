@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Button from './Button';
+import RenderIf from "../common/renderIf";
 import './timer.css';
 
 class Timer extends Component {
@@ -8,10 +9,6 @@ class Timer extends Component {
         isStarted: false,
         progressBar: 100,
     };
-
-    timerId = null;
-
-    timerValues
 
     get timerValues() {
         let min = Math.floor(this.state.time / 60);
@@ -24,30 +21,34 @@ class Timer extends Component {
         }
     }
 
-    startHandler = () => {
-        if (this.timerId !== null) {
+    timerTick = () => {
+        if (this.state.time <= 0) {
+            this.stopHandler();
             return;
         }
+        this.setState((prevState) => {
+            return {
+                time: prevState.time - 1,
+                progressBar: prevState.progressBar - (prevState.progressBar/prevState.time)
+            }
+
+        });
+    }
+
+    initialState = () => {
         this.setState({
             progressBar: 100,
-            time: 60,
-        });
-        this.timerId = setInterval(() => {
-            if (this.state.time === 0) {
-                this.stopHandler();
-                return;
-            }
-            this.setState((prevState) => {
-                return {
-                    time: prevState.time - 1,
-                    progressBar: prevState.progressBar - (prevState.progressBar/prevState.time)
-                }
-
-            });
-        }, 10);
-        this.setState({
             isStarted: true,
-        })
+            time: 60
+        });
+    }
+
+    startHandler = () => {
+        if (this.timerId) {
+            return;
+        }
+        this.initialState();
+        this.timerId = setInterval(this.timerTick, 10);
     };
 
     stopHandler = () => {
@@ -67,10 +68,12 @@ class Timer extends Component {
         return (
             <div>
                 <h3>{this.timerValues.minutes}:{this.timerValues.seconds}</h3>
-                <Button isStarted={this.state.isStarted}
-                        startHandler={this.startHandler}
-                        stopHandler={this.stopHandler}
-                />
+                <RenderIf condition={this.state.isStarted}>
+                    <button onClick={this.stopHandler}>Stop</button>
+                </RenderIf>
+                <RenderIf condition={!this.state.isStarted}>
+                    <button onClick={startHandler}>Start</button>
+                </RenderIf>
                 <div className='progressBar' style={{width: this.state.progressBar + '%'}}></div>
             </div>
 
