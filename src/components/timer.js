@@ -1,11 +1,24 @@
 import React, {Component} from 'react';
+import PropTypes from "prop-types";
 import Button from './Button';
 import RenderIf from "../common/renderIf";
 import './timer.css';
 
 class Timer extends Component {
-    state = {
+    static propTypes = {
+        time: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        step: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        autoStart: PropTypes.bool
+    }
+
+    static defaultProps = {
         time: 60,
+        step: 1,
+        autoStart: false
+    }
+
+    state = {
+        time: this.props.time,
         isStarted: false,
         progressBar: 100,
     };
@@ -22,6 +35,7 @@ class Timer extends Component {
     }
 
     timerTick = () => {
+        console.log(`${this.state.time} - tick`);
         if (this.state.time <= 0) {
             this.stopHandler();
             return;
@@ -47,22 +61,43 @@ class Timer extends Component {
         if (this.timerId) {
             return;
         }
-        this.initialState();
-        this.timerId = setInterval(this.timerTick, 10);
+        if(this.state.time <= 0) {
+            this.initialState();
+        }
+        this.toggleIsStarted(true);
+        this.timerId = setInterval(this.timerTick, 100);
     };
+
+    toggleIsStarted = (bool) => {
+        this.setState({
+            isStarted: bool,
+        })
+    }
 
     stopHandler = () => {
         clearInterval(this.timerId);
         this.timerId = null;
-        this.setState({
-            isStarted: false,
-        })
+        this.toggleIsStarted(false);
     };
     resetHandler = () => {
         this.setState({
             time: 0
         })
     };
+
+    componentDidMount(){
+        if(this.props.autoStart){
+            this.startHandler();
+        }
+    }
+
+    shouldComponentUpdate(nextProps, nextState){
+        return nextState.time % this.props.step === 0;
+    }
+
+    componentWillUnmount(){
+        this.stopHandler();
+    }
 
     render() {
         return (
@@ -81,4 +116,27 @@ class Timer extends Component {
     }
 }
 
-export default Timer
+export default Timer;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
