@@ -1,0 +1,11 @@
+.full-image{
+    width: 200px;
+}
+.small-image{
+    border-radius: 100%;
+    width: 100px;
+}
+.nano-image{
+    border-radius: 100%;
+    width: 50px;
+}
