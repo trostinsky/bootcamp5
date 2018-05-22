@@ -5,6 +5,7 @@ import "./profile.css";
 const Profile = (props) => {
   return (
       <div>
+          <h4>{props.name}</h4>
           <img src={props.image} alt="#" className="full-image"/>
           <div>
               <button onClick={props.onChangeImage}>Change</button>

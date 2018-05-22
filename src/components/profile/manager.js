@@ -2,21 +2,18 @@ import React, {Component, Fragment} from 'react';
 import Profile from './profile';
 import Small from "./profile.small";
 import Nano from "./profile.nano";
+import withImage from './withImage';
 
-class Manager extends Component {
+const ProfileEnchanced = withImage(Profile);
+const SmallEnchanced = withImage(Small);
+const NanoEnchanced = withImage(Nano);
 
-    render() {
-        return (
-            <Fragment>
-                <Profile image={this.props.image}
-                         onChangeImage={this.props.onChangeImage}
-                         onDefaultImage={this.props.onDefaultImage}
-                         onDelete={this.props.onDelete}/>
-                <Small image={this.props.image}/>
-                <Nano image={this.props.image} />
-            </Fragment>
-        )
-    }
-}
+const Manager = () => (
+    <Fragment>
+        <ProfileEnchanced/>
+        <SmallEnchanced/>
+        <NanoEnchanced/>
+    </Fragment>
+);
 
 export default Manager;

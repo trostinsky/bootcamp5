@@ -6,6 +6,8 @@ import Profile from './components/profile/profile';
 import Nano from './components/profile/profile.nano';
 import RenderIf from "./common/renderIf";
 import Manager from './components/profile/manager';
+import withImage from './components/profile/withImage';
+const NanoProfile = withImage(Nano);
 
 class App extends Component {
 
@@ -43,18 +45,14 @@ class App extends Component {
     render() {
         return (
             <Fragment>
-                <div><Nano image={this.state.image}/> Username</div>
+                <div> <NanoProfile/> Username</div>
                 <Timer time="5" onTimeOut={this.switchTimer}/>
                 <button onClick={this.switchTimer}>Переключить таймер</button>
                 <RenderIf condition={this.state.showTimer}>
                     <Timer time="6000" step="2" autoStart/>
                 </RenderIf>
                 <Timer time='0' reverse={false} autoStart/>
-                <Manager image={this.state.image}
-                         onChangeImage={this.onChangeImage}
-                         onDelete={this.onDelete}
-                         onDefaultImage={this.onDefaultImage}
-                />
+                <Manager />
             </Fragment>
         );
     }

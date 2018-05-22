@@ -1,8 +1,14 @@
-import React from "react";
+import React, {Fragment} from "react";
 import PropTypes from 'prop-types';
 
-const Nano = ({image}) => (
-    <img src={image} className="nano-image" alt="NanoAvatar!" />
+
+
+
+const Nano = ({image, name}) => (
+    <Fragment>
+        <img src={image} className="nano-image" alt="NanoAvatar!"/>
+        {name}
+    </Fragment>
 );
 Nano.propTypes = {
     image: PropTypes.string
