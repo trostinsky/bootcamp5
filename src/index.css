@@ -36,3 +36,10 @@ body {
     background-color: #333333;
     color: #fff;
 }
+
+a{
+    color:inherit;
+}
+.active{
+    color: #45ff4d;
+}

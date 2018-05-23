@@ -82,8 +82,6 @@ class PostsList extends Component {
     }
 
     render() {
-        console.log(<Post title="Test"/>)
-        debugger;
         return (
             <Fragment>
                 <h2>All posts</h2>

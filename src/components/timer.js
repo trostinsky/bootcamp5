@@ -39,6 +39,10 @@ class Timer extends Component {
         }
     }
 
+    get step() {
+        return parseInt(this.props.step, 10) || 1;
+    }
+
     timerTick = () => {
         // console.log(`${this.state.time} - tick`);
         if (this.state.time <= 0 && this.props.reverse) {
@@ -51,7 +55,7 @@ class Timer extends Component {
     reverseTick = () => {
         this.setState((prevState) => {
             return {
-                time: prevState.time - 1,
+                time: prevState.time - this.step,
                 progressBar: prevState.progressBar - (prevState.progressBar/prevState.time)
             }
         });
@@ -59,7 +63,7 @@ class Timer extends Component {
     straightTick = () =>{
         this.setState((prevState) => {
             return {
-                time: parseInt(prevState.time) + 1,
+                time: parseInt(prevState.time) + this.step,
             }
         })
     };
@@ -80,7 +84,7 @@ class Timer extends Component {
             this.initialState();
         }
         this.toggleIsStarted(true);
-        this.timerId = setInterval(this.timerTick, 1000);
+        this.timerId = setInterval(this.timerTick, this.step * 1000);
     };
 
     toggleIsStarted = (bool) => {
@@ -104,10 +108,6 @@ class Timer extends Component {
         if(this.props.autoStart){
             this.startHandler();
         }
-    }
-
-    shouldComponentUpdate(nextProps, nextState){
-        return nextState.time % this.props.step === 0;
     }
 
     componentWillUnmount(){

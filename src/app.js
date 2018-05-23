@@ -1,5 +1,4 @@
 import React, {Fragment, Component} from 'react';
-import Post from './components/post';
 import PostList from './components/postsList'
 import Timer from './components/timer';
 import Profile from './components/profile/profile';
@@ -7,55 +6,100 @@ import Nano from './components/profile/profile.nano';
 import RenderIf from "./common/renderIf";
 import Manager from './components/profile/manager';
 import withImage from './components/profile/withImage';
-const NanoProfile = withImage(Nano);
+import {BrowserRouter, Route, Redirect, Link, NavLink, Switch} from "react-router-dom";
 
-class App extends Component {
-
-    state = {
-        showTimer: false,
-        image: '/panda1.jpg',
-    }
-
-    onChangeImage = () => {
-        this.setState({
-            image: '/cat1.jpeg',
-        })
-    }
-
-    onDelete = () => {
-        this.setState({
-            image: void 0,
-        })
-    }
-
-    onDefaultImage = () => {
-        this.setState({
-            image: "/panda1.jpg"
-        })
-    }
-
-    switchTimer = () => {
-        this.setState((prevState) => {
-            return {
-                showTimer: !prevState.showTimer
-            }
-        })
-    }
-
-    render() {
-        return (
-            <Fragment>
-                <div> <NanoProfile/> Username</div>
-                <Timer time="5" onTimeOut={this.switchTimer}/>
-                <button onClick={this.switchTimer}>Переключить таймер</button>
-                <RenderIf condition={this.state.showTimer}>
-                    <Timer time="6000" step="2" autoStart/>
-                </RenderIf>
-                <Timer time='0' reverse={false} autoStart/>
-                <Manager />
-            </Fragment>
-        );
+const PrivateRoute = (props) => {
+    const isAuth = localStorage.getItem("auth");
+    if(isAuth){
+        return <Route {...props} />
+    } else {
+        return <Redirect to="/noauth/" />
     }
 }
 
+const NanoProfile = withImage(Nano);
+
+const PostsPage = (props) => {
+    return (
+        <Fragment>
+            <h2>Author: {props.match.params.name}</h2>
+            <h3>Article ID: {props.match.params.id}</h3>
+            <PostList/> {/* React.createComponent(PostList, {name: "Vlad"})*/}
+        </Fragment>
+    )
+}
+const TimerPage = () => (
+    <Fragment>
+        <Timer time="5"/>
+        <Timer time="6000" step="2" autoStart/>
+        <Timer time='0' reverse={false} autoStart/>
+    </Fragment>
+);
+const ProfilePage = () => (
+    <Fragment>
+        <div><NanoProfile/> Username</div>
+        <Manager/>
+    </Fragment>
+);
+
+const NotFound = () => <h1>This page not found</h1>;
+const NotAuth = () => <h1>This page only for authorized users</h1>;
+const Menu = () => (
+    <nav>
+        <p>
+            <NavLink to="/articles/">Posts</NavLink>
+        </p>
+        <p>
+            <NavLink to="/timer/">Timers</NavLink>
+        </p>
+        <p>
+            <NavLink to="/profile/">Profile</NavLink>
+        </p>
+        <p>
+            <Link to="/whoisthiswhatthefuck/">Not Found</Link>
+        </p>
+    </nav>
+);
+const logIn = () => {
+    localStorage.setItem("auth", true);
+};
+const logOut = () => {
+    localStorage.removeItem("auth");
+};
+const App = () => (
+    <BrowserRouter>
+        <Fragment>
+            <h1>Title</h1>
+            <button onClick={logIn}>Log In</button>
+            <button onClick={logOut}>Log Out</button>
+            <Menu/>
+            <Switch>
+                <Route path="/post/"
+                       component={() => <Redirect to="/articles/"/>}/>
+                <PrivateRoute path="/articles/:id/author/:name"
+                              component={PostsPage}/>
+                <PrivateRoute path="/timer/" component={TimerPage}/>
+                <PrivateRoute path="/profile/" component={ProfilePage}/>
+                <Route path="/noauth/" component={NotAuth} />
+                <Route exact path="/"
+                       component={() => <Redirect to="/profile/"/>}/>
+                <Route component={NotFound}/>
+            </Switch>
+        </Fragment>
+    </BrowserRouter>
+);
+
 export default App;
+
+// Примерно так работает реакт роутер
+switch (window.location.pathname) {
+    case "/test/": {
+        // render component Test
+    }
+    case "/state/": {
+        // render component State
+    }
+    default: {
+        // render 404 error
+    }
+}
