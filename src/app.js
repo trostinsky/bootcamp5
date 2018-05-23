@@ -6,6 +6,7 @@ import Nano from './components/profile/profile.nano';
 import RenderIf from "./common/renderIf";
 import Manager from './components/profile/manager';
 import withImage from './components/profile/withImage';
+import Game from "./components/game";
 import {BrowserRouter, Route, Redirect, Link, NavLink, Switch} from "react-router-dom";
 
 const PrivateRoute = (props) => {
@@ -67,26 +68,7 @@ const logOut = () => {
     localStorage.removeItem("auth");
 };
 const App = () => (
-    <BrowserRouter>
-        <Fragment>
-            <h1>Title</h1>
-            <button onClick={logIn}>Log In</button>
-            <button onClick={logOut}>Log Out</button>
-            <Menu/>
-            <Switch>
-                <Route path="/post/"
-                       component={() => <Redirect to="/articles/"/>}/>
-                <PrivateRoute path="/articles/:id/author/:name"
-                              component={PostsPage}/>
-                <PrivateRoute path="/timer/" component={TimerPage}/>
-                <PrivateRoute path="/profile/" component={ProfilePage}/>
-                <Route path="/noauth/" component={NotAuth} />
-                <Route exact path="/"
-                       component={() => <Redirect to="/profile/"/>}/>
-                <Route component={NotFound}/>
-            </Switch>
-        </Fragment>
-    </BrowserRouter>
+    <Game />
 );
 
 export default App;

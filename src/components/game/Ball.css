@@ -1,0 +1,19 @@
+.Ball {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    min-height: 10px;
+    min-width: 10px;
+    transform: translate(-50%, -50%);
+    transition: left .2s, top .2s;
+}
+
+.container {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    border: 1px solid #999999;
+}
+.active {
+    background-color: #e3d812;
+}
