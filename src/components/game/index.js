@@ -40,46 +40,44 @@ export default class Game extends Component{
         return this.state.balls.findIndex((ball) => ball.controlled);
     }
 
-    componentDidMount(){
-        window.addEventListener('keydown', this.handlePress);
-    }
-
-    componentWillUnmount(){
-        window.removeEventListener('keydown', this.handlePress);
-    }
-
-    moveLeft = () => {
+    changeControlled = ({x, y, r}) => {
         this.setState((prevState) => {
             const {balls} = prevState;
-            if(balls[this.myBallIndex].x <= balls[this.myBallIndex].r * 10 / 2) {
-                return false;
-            }
+            // if(balls[this.myBallIndex].x <= balls[this.myBallIndex].r * 10 / 2) {
+            //     return false;
+            // }
             return {
                 balls: [...balls.slice(0, this.myBallIndex),
                     {
                         ...balls[this.myBallIndex],
-                        x: balls[this.myBallIndex].x - 5
+                        x,
+                        y,
+                        r
                     },
                     ...balls.slice(this.myBallIndex + 1)]
             }
         })
     }
 
-    handlePress = (event) => {
-        event.preventDefault();
-        switch(event.keyCode){
-            case 37:
-                this.moveLeft();
-
+    moveHandler = ({clientX, clientY}) => {
+        this.debounce = setTimeout(() => {
+            this.debounce = null;
+        }, 200);
+        if(!this.debounce){
+            return false
         }
-    };
+        this.changeControlled({
+            x: clientX,
+            y: clientY
+        })
+    }
 
 
     render(){
         const {balls}= this.state
 
         return (
-            <div className='container' >
+            <div className='container' onMouseMove={this.moveHandler}>
                 {balls.map((ball, index)=> <Ball key={index}{...ball}/>)}
             </div>
 

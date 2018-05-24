@@ -13,6 +13,7 @@
     height: 200px;
     position: relative;
     border: 1px solid #999999;
+    cursor: none;
 }
 .active {
     background-color: #e3d812;

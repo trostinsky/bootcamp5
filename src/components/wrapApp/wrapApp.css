@@ -1,0 +1,28 @@
+body{
+    font-family: Helvetica;
+}
+.wrap-app__button{
+    background-color: #8ae78a;
+    width: 200px;
+    height: 40px;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+}
+
+.wrap-app__input{
+    height: 40px;
+    margin-right:10px;
+    box-sizing: border-box;
+}
+
+.wrap-app__form-wrapper{
+    margin-bottom:20px;
+}
+.wrap-app__list-item{
+    font-size: 16px;
+}
+.wrap-app__list-item--checked{
+    text-decoration: line-through;
+}
+

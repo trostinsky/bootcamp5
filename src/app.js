@@ -7,6 +7,7 @@ import RenderIf from "./common/renderIf";
 import Manager from './components/profile/manager';
 import withImage from './components/profile/withImage';
 import Game from "./components/game";
+import WrapApp from "./components/wrapApp/wrapApp.controller";
 import {BrowserRouter, Route, Redirect, Link, NavLink, Switch} from "react-router-dom";
 
 const PrivateRoute = (props) => {
@@ -68,7 +69,7 @@ const logOut = () => {
     localStorage.removeItem("auth");
 };
 const App = () => (
-    <Game />
+    <WrapApp />
 );
 
 export default App;
