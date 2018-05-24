@@ -6,16 +6,20 @@ class Wrap extends Component {
     state = {
         items: [{
             title: 'Computer',
-            checked: false
+            checked: false,
+            id: 1
         }, {
             title: 'Gun (if you going to Donetsk)',
-            checked: true
+            checked: true,
+            id: 2
         }, {
             title: 'Honey',
-            checked: false
+            checked: false,
+            id: 3
         }, {
             title: "Socks",
-            checked: true
+            checked: true,
+            id: 4
         }]
     }
 
@@ -32,6 +36,17 @@ class Wrap extends Component {
         })
     }
 
+    toggleChecked = (id, checked) => {
+        this.setState((prevState) => {
+            const items = [...prevState.items];
+            const index = items.findIndex((item) => item.id === id);
+            items[index].checked = checked;
+            return {
+                items: items
+            }
+        })
+    }
+
     render() {
         return (
             <div>
@@ -40,11 +55,14 @@ class Wrap extends Component {
                       items={this.state.items.filter((item) => {
                           return !item.checked;
                       })}
+                      toggleChecked={this.toggleChecked}
                 />
                 <List title="Wrapped"
                       items={this.state.items.filter((item) => {
                           return item.checked;
-                      })}/>
+                      })}
+                      toggleChecked={this.toggleChecked}
+                />
                 <Button>Unpacked All</Button>
             </div>
         )

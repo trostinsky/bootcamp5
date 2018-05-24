@@ -17,25 +17,32 @@ Button.propTypes = {
     onClick: PropTypes.func
 }
 
-const ListItem = ({checked, children}) => {
+const ListItem = ({checked, children, toggleChecked, id}) => {
+    const toggleHandler = (event) => {
+        toggleChecked(id, event.target.checked);
+    }
     return (
         <li className={`wrap-app__list-item
                         ${checked ? 'wrap-app__list-item--checked' : ''}
         `}>
             <input type="checkbox"
-                   checked={checked}/>
+                   checked={checked}
+                   onChange={toggleHandler}
+            />
             {children}
         </li>
     )
 }
 
-export const List = ({title, items}) => {
+export const List = ({title, items, toggleChecked}) => {
     return (
         <div className="wrap-app__list">
             <h3>{title}</h3>
             <ul>
                 {items && items.map((item, index) => (
-                    <ListItem checked={item.checked}>
+                    <ListItem checked={item.checked}
+                              id={item.id}
+                              toggleChecked={toggleChecked}>
                         {item.title}
                     </ListItem>
                 ))}
