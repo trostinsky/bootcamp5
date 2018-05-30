@@ -22,7 +22,6 @@ class Wrap extends Component {
             id: 4
         }]
     }
-
     addItem = (title) => {
         this.setState((prevState) => {
             const items = [...prevState.items];
